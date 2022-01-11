@@ -94,6 +94,23 @@ default   1         70d
 dev       1         25s
 ```
 
+Pour la création de role, j'ai utilisé cette documentation : https://kubernetes.io/docs/reference/access-authn-authz/rbac/
+
+On crée nos roles client, admin et dev.
+Exemple de config pour le role client : 
+
+```
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: role-client
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["pods", "port-forward"]
+  verbs: ["get", "watch", "list"]
+```
+
 ## 4. Monitoring
 
 Tout d'abord, il nous helm : https://helm.sh/
