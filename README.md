@@ -8,6 +8,7 @@ Tout d'abord, on crée 2 namespaces que l'on appelle :
     - namespace-hello-world
 
 Pour faire cela, on exécute les commandes suivantes : 
+
 `kubectl create namespace namespace-devops303`<br>
 `kubectl create namespace namespace-hello-world`
 
