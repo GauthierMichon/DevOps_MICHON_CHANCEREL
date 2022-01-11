@@ -2,15 +2,19 @@
 
 ## 1. Découpage des namespaces
 
-On créer 2 namespaces que l'on appelle :
+Tout d'abord, on crée 2 namespaces que l'on appelle :
 
     - namespace-devops303
     - namespace-hello-world
 
-`kubectl create namespace namespace-devops303`
+Pour faire cela, on exécute les commandes suivantes : 
+`kubectl create namespace namespace-devops303`<br>
 `kubectl create namespace namespace-hello-world`
 
-ça ressemble à ça :
+Dans namespace-devops303 nous auront tous les fichier de config pour lancer devops303 et redis.
+Dans namespace-hello-world nous auront tous les fichier de config pour lancer hello-world.
+
+En exécutant la commande `kubectl get namespace`, nous obtenons ceci :
 
 ```
 $ kubectl get namespace
@@ -24,35 +28,61 @@ namespace-devops303     Active   101m
 namespace-hello-world   Active   101m
 ```
 
-On applique les quota :
+On applique les quotas à nos namespaces.
+Pour faire cela, on exécute les commandes suivantes : 
 
-`kubectl apply -f devops303/namespaces-redis-devops303/devops303-quota.yml --namespace=namespace-devops303`
+`kubectl apply -f devops303/namespaces-redis-devops303/devops303-quota.yml --namespace=namespace-devops303`<br>
 `kubectl apply -f hello-world/hello-world-quota.yml --namespace=namespace-hello-world`
 
-## 2. Wordpress
+## 2. Mise en place du systeme devops303, redis et affichage de hello world
 
 On commence par build notre image pour devops303
 
-Puis on crée nos ingress avec les commandes :
+Puis on crée nos ingress avec les commandes suivantes :
 
-`kubectl apply -f devops303/namespaces-redis-devops303/devops303-ingress.yml`
+`kubectl apply -f devops303/namespaces-redis-devops303/devops303-ingress.yml`<br>
 `kubectl apply -f hello-world/hello-world-ingress.yml`
+
+En exécutant la commande `kubectl get ingress`, nous obtenons ceci :
+```
+$ kubectl get ingress
+NAME             CLASS   HOSTS                  ADDRESS     PORTS   AGE
+devops303        nginx   devops303.gautjam      localhost   80      178m
+hello-world-tp   nginx   hello-world.gautjam    localhost   80      4h54m
+```
 
 On crée notre configMap avec à l'intérieur les variables d'environnement : 
 
     - REDIS_HOST
     - REDIS_PORT
-  
+
+Voici le fichier de configuration de notre configMap :
+```
+kind: Service
+apiVersion: v1
+metadata:
+  name: service-redis-devops303
+spec: 
+  selector:
+    app: redis-devops303
+  ports:
+    - protocol: TCP
+      port: 6379 
+      targetPort: 6379
+```
+
+Pour le metadata name, on met le nom que l'on a donné à notre service redis.
+
 
 ## 3. RBAC
 
 On doit créer 3 servicesAccounts : 
 
-`kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-client.yml`
-`kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-dev.yml`
+`kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-client.yml`<br>
+`kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-dev.yml`<br>
 `kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-admin.yml`
 
-ça ressemble à ça :
+En exécutant la commande `kubectl get serviceAccounts`, nous obtenons ceci :
 
 ```
 $ kubectl get serviceAccounts
