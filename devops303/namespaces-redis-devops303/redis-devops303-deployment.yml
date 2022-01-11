@@ -1,0 +1,29 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: redis-devops303
+  labels:
+    app: redis-devops303
+    tier: devops
+spec:
+  selector:
+    matchLabels:
+      app: redis-devops303
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis-devops303
+    spec:
+      containers:
+        - name: redis-devops303
+          image: redis
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

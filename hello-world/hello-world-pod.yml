@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: hello-world-tp
+  labels:
+    app: cours-dev-ops
+    env: development
+spec: 
+  containers:
+    - name: hello-world-tp
+      image: dockercloud/hello-world
+      ports:
+        - containerPort: 80

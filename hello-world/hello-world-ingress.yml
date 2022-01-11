@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: hello-world-tp
+spec:
+  rules:
+    - host: hello-world.gautjam
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cours-dev-ops
+                port:
+                  number: 80

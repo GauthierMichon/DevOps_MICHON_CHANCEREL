@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy
+  labels:
+    app: cours-dev-ops
+    tier: devops
+spec:
+  selector:
+    matchLabels:
+      app: cours-dev-ops
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: cours-dev-ops
+    spec:
+      containers:
+        - name: hello-world-tp
+          image: dockercloud/hello-world
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              cpu: 100m
+              memory: 128Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

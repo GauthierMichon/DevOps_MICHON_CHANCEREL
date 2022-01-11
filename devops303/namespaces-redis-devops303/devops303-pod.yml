@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: devops303
+  labels:
+    app: cours-dev-ops
+    env: development
+spec: 
+  containers:
+    - name: devops303
+      image: devops303
+      ports:
+        - containerPort: 80
