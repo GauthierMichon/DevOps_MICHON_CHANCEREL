@@ -34,6 +34,7 @@ On applique les quota :
 On commence par build notre image pour devops303
 
 Puis on crée nos ingress avec les commandes :
+
 `kubectl apply -f devops303/namespaces-redis-devops303/devops303-ingress.yml`
 `kubectl apply -f hello-world/hello-world-ingress.yml`
 
@@ -45,7 +46,8 @@ On crée notre configMap avec à l'intérieur les variables d'environnement :
 
 ## 3. RBAC
 
-On doit créer 3 servicesAccounts.
+On doit créer 3 servicesAccounts : 
+
 `kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-client.yml`
 `kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-dev.yml`
 `kubectl apply -f devops303/namespaces-redis-devops303/ServiceAccount-admin.yml`
