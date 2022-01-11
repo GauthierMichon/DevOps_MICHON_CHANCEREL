@@ -60,3 +60,18 @@ client    1         49s
 default   1         70d
 dev       1         25s
 ```
+
+## 4. Monitoring
+
+Tout d'abord, il nous helm : https://helm.sh/
+
+Ensuite on excécute la commande :
+`helm repo add prometheus-community https://prometheus-community.github.io/helm-charts`
+
+Il nous faut installer grafana : https://grafana.com/grafana/download?platform=linux
+
+Une fois télécharger, on peut aller sur http://localhost:3000 qui est l'adresse sur laquelle écoute Grafana de base
+
+Maintenant pour créer la data source Prometheus, on va sur l'icone de paramètre, puis sur data source.
+Add Data Source et choisir Prometheus.
+On choisi notre URL, ici http://devops303.gautjam
